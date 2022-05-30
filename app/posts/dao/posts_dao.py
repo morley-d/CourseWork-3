@@ -7,9 +7,8 @@ class PostsDAO:
     def __init__(self, path):
         self.path = path
 
-    # загрузка данных из файла
     def load(self):
-        with open(f"{self.path}", 'r', encoding='utf-8') as file:
+        with open(self.path, 'r', encoding='utf-8') as file:
             return json.load(file)
 
     # возвращает все посты
@@ -32,5 +31,11 @@ class PostsDAO:
                 posts_founded.append(post)
         return posts_founded
 
-print()
-
+    # возвращает список словарей по вхождению
+    def search(self, query):
+        posts = self.get_all()
+        matching_posts = []
+        for post in posts:
+            if query.lower() in post['content'].lower():
+                matching_posts.append(post)
+        return matching_posts
