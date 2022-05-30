@@ -8,7 +8,7 @@ class PostsDAO:
         self.path = path
 
     def load(self):
-        with open("data/posts.json", 'r', encoding='utf-8') as file:
+        with open(self.path, 'r', encoding='utf-8') as file:
             return json.load(file)
 
     # возвращает все посты
