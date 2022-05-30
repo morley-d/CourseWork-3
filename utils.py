@@ -31,5 +31,3 @@ def get_posts_by_user(posts, user_name):
 #     post_list.append(post)
 #     with open(POST_PATH, 'w', encoding='utf-8') as file:
 #         json.dump(post_list, file)
-
-print(load_json_posts_data())
