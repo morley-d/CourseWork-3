@@ -46,7 +46,9 @@ def post_error(e):
 
 @posts_blueprint.route('/search/')
 def posts_search():
-    return "Поиск по постам"
+    query = request.args.get('s', '')
+    posts = posts_dao.search(query)
+    return render_template('search.html', query=query, posts=posts)
 
 
 @posts_blueprint.route('/users/<username>/')
