@@ -1,10 +1,17 @@
 from flask import Blueprint, render_template, request
+from .dao.posts_dao import PostsDAO
 
-posts_blueprint = Blueprint('posts_blueprint', __name__, template_folder='templates')
+posts_blueprint = Blueprint('posts_blueprint', __name__, template_folder='../../templates')
+posts_dao = PostsDAO('data/posts.json')
 
 
 @posts_blueprint.route('/')
 def posts_all():
+    try:
+        posts = posts_dao.get_all()
+        return render_template('index.html', posts=posts)
+    except:
+        render_template("Что то пошло не так")
     return "Все посты тут"
 
 
