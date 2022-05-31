@@ -7,14 +7,13 @@ class TestPostsDAO:
 
     @pytest.fixture
     def posts_dao(self):
-        return PostsDAO("../../../data/posts.json")
+        return PostsDAO("data/posts.json")
 
     @pytest.fixture
     def keys_expected(self):
         return {"poster_name", "poster_avatar", "pic", "content", "views_count", "likes_count", "pk"}
 
     # Получение всех постов
-
     def test_get_all_check_type(self, posts_dao):
         posts = posts_dao.get_all()
         assert type(posts) == list, "Список постов доолжен быть списком"
@@ -27,7 +26,6 @@ class TestPostsDAO:
         assert first_post_keys == keys_expected, "Полученные ключи не верны"
 
     # Получение одного поста
-
     def test_get_one_check_type(self, posts_dao):
         post = posts_dao.get_by_pk(1)
         assert type(post) == dict, "Пост должен быть словарем"
@@ -46,7 +44,6 @@ class TestPostsDAO:
 
     # Получение постов по пользователю
     post_parametrs_by_user = [("leo", {1, 5}), ("larry", {4, 8}), ("hank", {3, 7})]
-
     @pytest.mark.parametrize("poster_name, post_pks_correct", post_parametrs_by_user)
     def test_get_posts_by_user(self, posts_dao, poster_name, post_pks_correct):
         posts = posts_dao.get_posts_by_user(poster_name)
@@ -57,7 +54,6 @@ class TestPostsDAO:
 
     # Поиск постов
     post_parametrs_search = [("тарелка", {1}), ("елки", {3}), ("проснулся", {4})]
-
     @pytest.mark.parametrize("query, post_pks_correct", post_parametrs_search)
     def test_get_posts_by_user(self, posts_dao, query, post_pks_correct):
         posts = posts_dao.search(query)
