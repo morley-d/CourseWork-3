@@ -1,3 +1,7 @@
+"""
+API с двумя эндпоинтами: возврат полного списка постов
+                         и возврат одного поста
+"""
 import logging
 from flask import Blueprint, request, jsonify
 from app.posts.dao.posts_dao import PostsDAO

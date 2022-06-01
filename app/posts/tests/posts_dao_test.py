@@ -53,6 +53,17 @@ class TestPostsDAO:
         assert post_pks == post_pks_correct
 
     # Поиск постов
+    def test_search_check_type(self, posts_dao):
+        posts = posts_dao.search("A")
+        assert type(posts) == list, "Результат поиска должен быть списком"
+        assert type(posts[0]) == dict, "Найденые элементы должны быть словарем"
+
+    def test_search_has_keys(self, posts_dao, keys_expected):
+        post = posts_dao.search("A")[0]
+        post_keys = set(post.keys())
+        assert post_keys == keys_expected, "Полученные ключи не верны"
+
+
     post_parametrs_search = [("тарелка", {1}), ("елки", {3}), ("проснулся", {4})]
     @pytest.mark.parametrize("query, post_pks_correct", post_parametrs_search)
     def test_get_posts_by_user(self, posts_dao, query, post_pks_correct):
