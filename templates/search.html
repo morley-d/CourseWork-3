@@ -25,6 +25,8 @@
   </header>
   <main class="container">
     <p class="search__results">Найдено постов: {{ posts | length }}</p>
+    <div class="search">
+    </div>
     {% if query == "" %}
         <p> Вы не ввели текст для поиска </p>
     {% else %}

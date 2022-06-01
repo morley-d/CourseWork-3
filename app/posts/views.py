@@ -39,11 +39,6 @@ def posts_one(post_pk):
         return render_template("post.html", post=post, comments=comments)
 
 
-@posts_blueprint.errorhandler(404)
-def post_error(e):
-    return "Такой пост не найден", 404
-
-
 @posts_blueprint.route('/search/')
 def posts_search():
     query = request.args.get('s', '')
@@ -57,4 +52,12 @@ def posts_search():
 
 @posts_blueprint.route('/users/<username>/')
 def posts_by_users(username):
-    return "Поиск по постам пользователя"
+    posts = posts_dao.get_posts_by_user(username)
+    return render_template('user-feed.html', username=username, posts=posts)
+
+    # TODO: почему не работают css-стили для user-feed.html?
+
+
+@posts_blueprint.errorhandler(404)
+def post_error(e):
+    return "Такой пост не найден", 404
