@@ -47,7 +47,11 @@ def post_error(e):
 @posts_blueprint.route('/search/')
 def posts_search():
     query = request.args.get('s', '')
-    posts = posts_dao.search(query)
+    logger.debug(f'Запрошен поиск по "{query}"')
+    if query != "":
+        posts = posts_dao.search(query)
+    else:
+        posts = []
     return render_template('search.html', query=query, posts=posts)
 
 
