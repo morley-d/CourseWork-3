@@ -24,6 +24,9 @@
     </div>
   </header>
   <main class="container">
+    {% if posts | length == 0 %}
+        <p>Посты для <strong>{{ username }}</strong> не найдены</p>
+    {% endif %}
      <section class="items">
       {% for post in posts %}
         <div class="items__item item">
