@@ -55,8 +55,6 @@ def posts_by_users(username):
     posts = posts_dao.get_posts_by_user(username)
     return render_template('user-feed.html', username=username, posts=posts)
 
-    # TODO: почему не работают css-стили для user-feed.html?
-
 
 @posts_blueprint.errorhandler(404)
 def post_error(e):
