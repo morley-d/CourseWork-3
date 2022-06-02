@@ -24,6 +24,12 @@
     </div>
   </header>
   <main class="container">
+    <div class="search">
+      <form action="/search/" method="get" class="search__form">
+        <input name="s" type="search" class="search__input">
+      </form>
+      <p class="search__results">Введите текст для поиска</p>
+    </div>
     <p class="search__results">Найдено постов: {{ posts | length }}</p>
     <div class="search">
     </div>
