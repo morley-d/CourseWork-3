@@ -57,6 +57,12 @@ def posts_by_users(username):
     return render_template('user-feed.html', username=username, posts=posts)
 
 
+@posts_blueprint.route('/tag/<tagname>/')
+def posts_for_tag(tagname):
+    posts = posts_dao.search_for_tags(tagname)
+    return render_template('tag.html', tagname=tagname, posts=posts)
+
+
 @posts_blueprint.errorhandler(404)
 def post_error(e):
     return "Такой пост не найден", 404

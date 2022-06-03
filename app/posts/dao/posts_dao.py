@@ -13,7 +13,9 @@ class PostsDAO:
 
     # возвращает все посты
     def get_all(self):
-        return self.load()
+        posts = self.load()
+        posts_with_tags = self.replace_tags_for_link(posts)
+        return posts_with_tags
 
     # возвращает пост по его идентификатору
     def get_by_pk(self, pk):
@@ -39,3 +41,31 @@ class PostsDAO:
             if query.lower() in post['content'].lower():
                 matching_posts.append(post)
         return matching_posts
+
+    # возвращает список словарей по тэгу
+    def search_for_tags(self, tag):
+        posts = self.get_all()
+        matching_posts = []
+        for post in posts:
+            words_list = post["content"].split()
+            for word in words_list:
+                if tag in word:
+                    matching_posts.append(post)
+                    break
+        return matching_posts
+
+    def create_tags(self, text):
+        words_list = text.split()
+        for index in range(len(words_list)):
+            word = words_list[index]
+            if word.startswith('#'):
+                words_list[index] = f'<a href="/tag/{word[1:]}">{word}</a>'
+        words_list = " ".join(words_list)
+        return words_list
+
+    def replace_tags_for_link(self, posts):
+        for post in posts:
+            new_content = self.create_tags(post["content"])
+            post["content"] = new_content
+        return posts
+
