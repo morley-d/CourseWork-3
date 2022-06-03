@@ -44,6 +44,7 @@ class PostsDAO:
 
     # возвращает список словарей по тэгу
     def search_for_tags(self, tag):
+        tag = "#" + tag
         posts = self.get_all()
         matching_posts = []
         for post in posts:
